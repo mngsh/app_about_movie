@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.network
 
-import io.reactivex.Single
-import retrofit2.Call
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,23 +13,23 @@ interface MovieApiInterface {
     fun getUpcomingMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Single<MoviesResponse>
+    ): Observable<MoviesResponse>
 
     @GET("/3/movie/top_rated")
     fun getTopRatedMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Single<MoviesResponse>
+    ): Observable<MoviesResponse>
 
     @GET("/3/movie/popular")
     fun getPopularMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Single<MoviesResponse>
+    ): Observable<MoviesResponse>
 
     @GET("/3/movie/{movie_id}")
     fun getMovieDetail(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String
-    ): Single<MovieDetails>
+    ): Observable<MovieDetails>
 }

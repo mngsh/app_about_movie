@@ -1,5 +1,6 @@
 package ru.androidschool.intensiv.ui.feed
 
+
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,11 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import io.reactivex.Observable
+import io.reactivex.functions.Function3
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Movie
+import ru.androidschool.intensiv.data.MoviesResponse
+import ru.androidschool.intensiv.data.ResultFeedMovie
 import ru.androidschool.intensiv.extensions.addSchedulers
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.afterTextChanged
@@ -45,20 +50,27 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         }
 
         val getNowPlayingMovie = MovieApiClient.apiClient.getUpcomingMovie(API_KEY, "ru")
-        getNowPlayingMovie.addSchedulers()
-            .subscribe { it -> createMovieCard(it.results, R.string.upcoming) }
-
         val getRecommendedMovie = MovieApiClient.apiClient.getTopRatedMovie(API_KEY, "ru")
-        getRecommendedMovie.addSchedulers().subscribe { it ->
-            createMovieCard(
-                it.results,
-                R.string.recommended
-            )
-        }
-
         val getPopularMovie = MovieApiClient.apiClient.getPopularMovie(API_KEY, "ru")
-        getPopularMovie.addSchedulers()
-            .subscribe { it -> createMovieCard(it.results, R.string.popular) }
+
+        val disposable = Observable.zip(getNowPlayingMovie, getRecommendedMovie, getPopularMovie,
+            Function3<MoviesResponse, MoviesResponse, MoviesResponse, ResultFeedMovie>
+            { getNowPlayingMovie, getRecommendedMovie, getPopularMovie ->
+                ResultFeedMovie(
+                    getNowPlayingMovie.results,
+                    getRecommendedMovie.results,
+                    getPopularMovie.results
+                )
+            }
+        )
+            .addSchedulers()
+            .doOnSubscribe { feed_fragment_progress_bar.visibility = View.VISIBLE }
+            .doFinally { feed_fragment_progress_bar.visibility = View.INVISIBLE }
+            .subscribe({
+                createMovieCard(it.popularMovie, R.string.recommended)
+                createMovieCard(it.recommendedMovie, R.string.popular)
+                createMovieCard(it.playingMovie, R.string.upcoming)
+            })
 
     }
 

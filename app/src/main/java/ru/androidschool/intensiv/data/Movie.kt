@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class Movie(@SerializedName("adult")
                  val isAdult: Boolean,
