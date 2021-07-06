@@ -9,8 +9,9 @@ import ru.androidschool.intensiv.BuildConfig
 object TVShowApiClient {
 
     private val clientTVShow: OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply{
-            this.level = HttpLoggingInterceptor.Level.BODY})
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        })
         .build()
 
     val apiClient: TVShowApiInterface by lazy {

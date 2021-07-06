@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
-import ru.androidschool.intensiv.ui.feed.MovieItem
 
 data class ResultFeedMovie(
     @SerializedName("getNowPlayingMovie")

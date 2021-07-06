@@ -1,16 +1,16 @@
 package ru.androidschool.intensiv.ui.feed
 
-import android.opengl.Visibility
+
 import android.os.Bundle
-import android.view.*
-import android.widget.ProgressBar
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.functions.Function3
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
@@ -19,15 +19,12 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Movie
 import ru.androidschool.intensiv.data.MoviesResponse
 import ru.androidschool.intensiv.data.ResultFeedMovie
-import ru.androidschool.intensiv.databinding.FragmentProfileBinding
 import ru.androidschool.intensiv.extensions.addSchedulers
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
 
 class FeedFragment : Fragment(R.layout.feed_fragment) {
-
-    private lateinit var progressbar: ProgressBar
 
     private val adapter by lazy {
         GroupAdapter<GroupieViewHolder>()
@@ -44,8 +41,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        progressbar = view.findViewById(R.id.feed_fragment_progress_bar)
 
         search_toolbar.search_edit_text.afterTextChanged {
             Timber.d(it.toString())
