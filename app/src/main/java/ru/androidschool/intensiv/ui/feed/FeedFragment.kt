@@ -71,7 +71,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 createMovieCard(it.recommendedMovie, R.string.popular)
                 createMovieCard(it.playingMovie, R.string.upcoming)
             })
-
+        
     }
 
     private fun createMovieCard(resultMoviesResponse: List<Movie>, titleSection: Int) {
