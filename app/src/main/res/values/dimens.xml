@@ -20,7 +20,6 @@
     <dimen name="search_bar_height">56dp</dimen>
     <dimen name="min_height">100dp</dimen>
 
-    <dimen name="progressbar_margin_start">180dp</dimen>
-    <dimen name="progressbar_margin_top">200dp</dimen>
+    <dimen name="progressbar_margin_top">185dp</dimen>
 
 </resources>

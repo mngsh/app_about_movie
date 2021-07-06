@@ -1,9 +1,9 @@
 package ru.androidschool.intensiv.ui.feed
 
+import android.opengl.Visibility
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -19,12 +19,15 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Movie
 import ru.androidschool.intensiv.data.MoviesResponse
 import ru.androidschool.intensiv.data.ResultFeedMovie
+import ru.androidschool.intensiv.databinding.FragmentProfileBinding
 import ru.androidschool.intensiv.extensions.addSchedulers
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
 
 class FeedFragment : Fragment(R.layout.feed_fragment) {
+
+    private lateinit var progressbar: ProgressBar
 
     private val adapter by lazy {
         GroupAdapter<GroupieViewHolder>()
@@ -42,6 +45,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressbar = view.findViewById(R.id.feed_fragment_progress_bar)
+
         search_toolbar.search_edit_text.afterTextChanged {
             Timber.d(it.toString())
             if (it.toString().length > MIN_LENGTH) {
@@ -56,12 +61,21 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         val disposable = Observable.zip(getNowPlayingMovie, getRecommendedMovie, getPopularMovie,
             Function3<MoviesResponse, MoviesResponse, MoviesResponse, ResultFeedMovie>
             { getNowPlayingMovie, getRecommendedMovie, getPopularMovie ->
-                ResultFeedMovie(getNowPlayingMovie.results, getRecommendedMovie.results, getPopularMovie.results) }
+                ResultFeedMovie(
+                    getNowPlayingMovie.results,
+                    getRecommendedMovie.results,
+                    getPopularMovie.results
+                )
+            }
         )
             .addSchedulers()
-            .subscribe({createMovieCard(it.popularMovie, R.string.recommended)
-            createMovieCard(it.recommendedMovie, R.string.popular)
-            createMovieCard(it.playingMovie, R.string.upcoming)})
+            .doOnSubscribe { feed_fragment_progress_bar.visibility = View.VISIBLE }
+            .doFinally { feed_fragment_progress_bar.visibility = View.INVISIBLE }
+            .subscribe({
+                createMovieCard(it.popularMovie, R.string.recommended)
+                createMovieCard(it.recommendedMovie, R.string.popular)
+                createMovieCard(it.playingMovie, R.string.upcoming)
+            })
 
     }
 

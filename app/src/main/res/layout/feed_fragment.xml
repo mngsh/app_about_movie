@@ -7,14 +7,15 @@
 
     <include layout="@layout/feed_header" />
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:layout_width="wrap_content"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/feed_fragment_progress_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:layout_marginStart="@dimen/progressbar_margin_start"
         android:layout_marginTop="@dimen/progressbar_margin_top"
-        app:indicatorColor="@color/blueDark"
-        app:trackColor="@color/colorPrimary"/>
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:indicatorColor="@color/favorite"
+        app:trackColor="@color/colorPrimary" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
