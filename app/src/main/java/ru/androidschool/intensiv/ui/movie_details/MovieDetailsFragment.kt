@@ -1,20 +1,24 @@
 package ru.androidschool.intensiv.ui.movie_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_tv_show.view.*
+import kotlinx.android.synthetic.main.movie_details_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.moviedetails.MovieDetails
+import ru.androidschool.intensiv.extensions.addSchedulers
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.feed.FeedFragment
 import timber.log.Timber
+import java.util.*
 
-/**
- * как лучше привязать данные с view? через viewbinding? или какой-то другой вариант?
- */
+
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,22 +27,22 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         val args = arguments
         val index = args?.getInt(FeedFragment.KEY_TITLE, 0)
 
-        val callMovieDetails = MovieApiClient.apiClient.getMovieDetail(index!!, API_KEY)
+        val callMovieDetails = index?.let { MovieApiClient.apiClient.getMovieDetail(it, API_KEY, "ru") }
 
-//        callMovieDetails.enqueue(object: Callback<MovieDetails> {
-//            override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-//                Timber.d("Response")
-//
-//                val detailMovieResponse = response.body()
-//
-//            }
-//
-//            override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-//                Timber.e("Fail")
-//            }
-//
-//        })
+        callMovieDetails?.addSchedulers()?.doOnError { Timber.e("error") }
+            ?.subscribe({
+                        settingAttributesFragment(it)
+            }, {Log.e("error", it.message.toString())})
 
+    }
+
+    private fun settingAttributesFragment(movieDetails: MovieDetails) {
+        title_detail_movie.text = movieDetails.title
+        description_detail_movie.text = movieDetails.description
+        year_creation_detail_movie.text =movieDetails.yearCreate
+        Picasso.get()
+            .load(movieDetails.image)
+            .into(image_detail_movie)
     }
 
     companion object {

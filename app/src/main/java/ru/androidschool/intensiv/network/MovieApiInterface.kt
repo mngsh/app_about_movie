@@ -30,6 +30,7 @@ interface MovieApiInterface {
     @GET("/3/movie/{movie_id}")
     fun getMovieDetail(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
     ): Observable<MovieDetails>
 }

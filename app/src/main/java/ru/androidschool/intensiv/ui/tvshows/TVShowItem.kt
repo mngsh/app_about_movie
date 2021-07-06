@@ -3,8 +3,8 @@ package ru.androidschool.intensiv.ui.tvshows
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import ru.androidschool.intensiv.R
 import kotlinx.android.synthetic.main.item_tv_show.*
+import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.tvshow.TVShow
 
 
