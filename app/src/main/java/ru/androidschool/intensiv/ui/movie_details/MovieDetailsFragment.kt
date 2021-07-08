@@ -6,6 +6,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
@@ -15,6 +17,7 @@ import ru.androidschool.intensiv.database.MovieEntity
 import ru.androidschool.intensiv.extensions.addSchedulers
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.feed.FeedFragment
+import timber.log.Timber
 
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
@@ -29,17 +32,16 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         val callMovieDetails = index?.let { MovieApiClient.apiClient.getMovieDetail(it, API_KEY, "ru") }
 
-        val disposable = callMovieDetails?.addSchedulers()?.subscribe({
+        val disposable = callMovieDetails?.addSchedulers()?.subscribe {
             val movieResponse = convertMovieToDB(it)
             like_detail_movie.setOnClickListener {
                 db?.save(movieResponse)
                     ?.subscribeOn(Schedulers.io())
                     ?.observeOn(AndroidSchedulers.mainThread())
-                    ?.subscribe({}, { Log.e("error", it.message.toString())})
+                    ?.subscribe({}, { Timber.e(it.message.toString()) })
             }
             settingAttributesFragment(it)
-            })
-
+        }
     }
 
     private fun settingAttributesFragment(movieDetails: MovieDetails) {
@@ -53,6 +55,10 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private fun convertMovieToDB(dto: MovieDetails): MovieEntity {
         return MovieEntity(dto.id.toLong(), dto.title, dto.image)
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 
     companion object {
