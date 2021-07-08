@@ -4,17 +4,18 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Completable
+import io.reactivex.Observable
 
 
 @Dao
 interface MovieDAO {
-
     @Insert
-    fun save(movie: List<Movie>)
+    fun save(movieEntity: MovieEntity):Completable
 
     @Delete
-    fun delete(movie: Movie)
+    fun delete(movieEntity: MovieEntity):Completable
 
-    @Query("SELECT * FROM `Liked movie`")
-    fun getAllMovie(movie: List<Movie>)
+    @Query("SELECT * FROM likedMovie")
+    fun getAllMovie(): Observable<List<MovieEntity>>
 }

@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "Liked movie")
-data class Movie(
+@Entity(tableName = "likedMovie")
+data class MovieEntity(
     @PrimaryKey
     @ColumnInfo(name = "movieID")
     val id: Long,
