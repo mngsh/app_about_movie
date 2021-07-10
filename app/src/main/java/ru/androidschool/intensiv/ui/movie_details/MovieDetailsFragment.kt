@@ -29,8 +29,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         val callMovieDetails = index?.let { MovieApiClient.apiClient.getMovieDetail(it, API_KEY, "ru") }
 
-        callMovieDetails?.addSchedulers()?.doOnError { Timber.e("error") }
-            ?.subscribe({
+        callMovieDetails?.addSchedulers()?.subscribe({
                         settingAttributesFragment(it)
             }, {Log.e("error", it.message.toString())})
 

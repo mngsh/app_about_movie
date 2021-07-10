@@ -1,6 +1,7 @@
 package ru.androidschool.intensiv.data.tvshow
 
 import com.google.gson.annotations.SerializedName
+import ru.androidschool.intensiv.BuildConfig
 
 data class TVShow(
     @SerializedName("name")
@@ -8,5 +9,5 @@ data class TVShow(
 ) {
     @SerializedName("poster_path")
     var image: String? = null
-        get() = "https://image.tmdb.org/t/p/w500$field"
+        get() = "${BuildConfig.URL_IMAGE}$field"
 }

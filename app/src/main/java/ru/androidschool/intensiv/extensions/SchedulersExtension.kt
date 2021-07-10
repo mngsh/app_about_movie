@@ -9,4 +9,5 @@ import io.reactivex.schedulers.Schedulers
 fun <T> Observable<T>.addSchedulers(): Observable<T>{
     return this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+
 }
