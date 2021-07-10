@@ -53,7 +53,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         val getRecommendedMovie = MovieApiClient.apiClient.getTopRatedMovie(API_KEY, "ru")
         val getPopularMovie = MovieApiClient.apiClient.getPopularMovie(API_KEY, "ru")
 
-        val disposable = Observable.zip(getNowPlayingMovie, getRecommendedMovie, getPopularMovie,
+        val disp = Observable.zip(getNowPlayingMovie, getRecommendedMovie, getPopularMovie,
             Function3<MoviesResponse, MoviesResponse, MoviesResponse, ResultFeedMovie>
             { getNowPlayingMovie, getRecommendedMovie, getPopularMovie ->
                 ResultFeedMovie(
@@ -66,12 +66,11 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             .addSchedulers()
             .doOnSubscribe { feed_fragment_progress_bar.visibility = View.VISIBLE }
             .doFinally { feed_fragment_progress_bar.visibility = View.INVISIBLE }
-            .subscribe({
+            .subscribe{
                 createMovieCard(it.popularMovie, R.string.recommended)
                 createMovieCard(it.recommendedMovie, R.string.popular)
                 createMovieCard(it.playingMovie, R.string.upcoming)
-            })
-        
+            }
     }
 
     private fun createMovieCard(resultMoviesResponse: List<Movie>, titleSection: Int) {
