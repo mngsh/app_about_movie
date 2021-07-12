@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.data.dto
+package ru.androidschool.intensiv.data.dto.moviedetail
 
 import com.google.gson.annotations.SerializedName
 

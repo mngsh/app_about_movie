@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.BuildConfig.API_KEY
 import ru.androidschool.intensiv.BuildConfig.LANGUAGE
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.vo.TVShow
+import ru.androidschool.intensiv.data.dto.tvshow.TVShowDTO
 import ru.androidschool.intensiv.domain.extensions.addSchedulers
 import ru.androidschool.intensiv.data.network.TVShowApiClient
 
@@ -30,12 +30,12 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
         getTvShow
             .addSchedulers()
-            .subscribe({ createTVShowCard(it.tvShow) })
+            .subscribe({ createTVShowCard(it.tvShowDTO) })
 
     }
 
-    private fun createTVShowCard(resultTVShowResponse: List<TVShow>) {
-        val listTVShow = resultTVShowResponse.map {
+    private fun createTVShowCard(resultTVShowDTOResponse: List<TVShowDTO>) {
+        val listTVShow = resultTVShowDTOResponse.map {
             TVShowItem(it) { tvShow ->
 
             }

@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.search_toolbar.view.*
 import ru.androidschool.intensiv.BuildConfig.API_KEY
 import ru.androidschool.intensiv.BuildConfig.LANGUAGE
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.vo.Movie
-import ru.androidschool.intensiv.data.dto.MoviesDTO
-import ru.androidschool.intensiv.data.dto.FeedMovieDTO
+import ru.androidschool.intensiv.data.dto.moviefeed.MovieDTO
+import ru.androidschool.intensiv.data.dto.moviefeed.MovieResponseDTO
+import ru.androidschool.intensiv.data.dto.moviefeed.FeedMovieDTO
 import ru.androidschool.intensiv.domain.extensions.addSchedulers
 import ru.androidschool.intensiv.data.network.MovieApiClient
 import ru.androidschool.intensiv.presentation.afterTextChanged
@@ -56,7 +56,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         val getPopularMovie = MovieApiClient.apiClient.getPopularMovie(API_KEY, LANGUAGE)
 
         val disp = Observable.zip(getNowPlayingMovie, getRecommendedMovie, getPopularMovie,
-            Function3<MoviesDTO, MoviesDTO, MoviesDTO, FeedMovieDTO>
+            Function3<MovieResponseDTO, MovieResponseDTO, MovieResponseDTO, FeedMovieDTO>
             { getNowPlayingMovie, getRecommendedMovie, getPopularMovie ->
                 FeedMovieDTO(
                     getNowPlayingMovie.results,
@@ -69,13 +69,13 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             .doOnSubscribe { feed_fragment_progress_bar.visibility = View.VISIBLE }
             .doFinally { feed_fragment_progress_bar.visibility = View.INVISIBLE }
             .subscribe {
-                createMovieCard(it.popularMovie, R.string.recommended)
-                createMovieCard(it.recommendedMovie, R.string.popular)
-                createMovieCard(it.playingMovie, R.string.upcoming)
+                createMovieCard(it.popularMovieDTO, R.string.recommended)
+                createMovieCard(it.recommendedMovieDTO, R.string.popular)
+                createMovieCard(it.playingMovieDTO, R.string.upcoming)
             }
     }
 
-    private fun createMovieCard(resultMoviesResponse: List<Movie>, titleSection: Int) {
+    private fun createMovieCard(resultMoviesResponse: List<MovieDTO>, titleSection: Int) {
         val listMovie = resultMoviesResponse.map {
             MovieItem(it) { movie ->
                 openMovieDetails(movie)
@@ -86,10 +86,10 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         movies_recycler_view.adapter = adapter.apply { addAll(listCard) }
     }
 
-    private fun openMovieDetails(movie: Movie) {
+    private fun openMovieDetails(movieDTO: MovieDTO) {
         val bundle = Bundle()
-        if (movie.movieId != null) {
-            bundle.putInt(KEY_TITLE, movie.movieId)
+        if (movieDTO.movieId != null) {
+            bundle.putInt(KEY_TITLE, movieDTO.movieId)
         }
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }

@@ -5,11 +5,11 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_with_text.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.vo.Movie
+import ru.androidschool.intensiv.data.dto.moviefeed.MovieDTO
 
 class MovieItem(
-    private val content: Movie,
-    private val onClick: (movie: Movie) -> Unit
+    private val content: MovieDTO,
+    private val onClick: (movieDTO: MovieDTO) -> Unit
 ) : Item() {
 
     override fun getLayout() = R.layout.item_with_text
@@ -22,7 +22,7 @@ class MovieItem(
         }
 
         Picasso.get()
-            .load(content.posterPath)
+            .load(content.image)
             .into(viewHolder.image_preview)
     }
 }

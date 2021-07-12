@@ -1,13 +1,11 @@
 package ru.androidschool.intensiv.data.vo
 
-import com.google.gson.annotations.SerializedName
-
-data class Movie(@SerializedName("id")
-                 val movieId: Int?,
-                 @SerializedName("title")
-                 var title: String?
+data class Movie(
+    val id: Int?,
+    var title: String?,
+    val image: String?,
+    val voteAverage: Double
 ) {
-    @SerializedName("poster_path")
-    var posterPath: String? = null
-        get() = "https://image.tmdb.org/t/p/w500$field"
+    val rating: Double
+        get() = voteAverage / 2
 }

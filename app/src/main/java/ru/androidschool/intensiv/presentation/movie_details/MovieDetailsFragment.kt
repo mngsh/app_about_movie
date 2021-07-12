@@ -9,9 +9,9 @@ import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.BuildConfig.API_KEY
 import ru.androidschool.intensiv.BuildConfig.LANGUAGE
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.dto.MovieDetailsDTO
-import ru.androidschool.intensiv.database.MovieDatabase
-import ru.androidschool.intensiv.database.MovieEntity
+import ru.androidschool.intensiv.data.dto.moviedetail.MovieDetailsDTO
+import ru.androidschool.intensiv.data.database.MovieDatabase
+import ru.androidschool.intensiv.data.entity.MovieEntity
 import ru.androidschool.intensiv.domain.extensions.addSchedulers
 import ru.androidschool.intensiv.domain.extensions.addSchedulersToDB
 import ru.androidschool.intensiv.data.network.MovieApiClient

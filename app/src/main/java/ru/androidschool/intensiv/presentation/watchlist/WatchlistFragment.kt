@@ -10,8 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_watchlist.movies_recycler_view
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.database.MovieDatabase
-import ru.androidschool.intensiv.database.MovieEntity
+import ru.androidschool.intensiv.data.database.MovieDatabase
+import ru.androidschool.intensiv.data.entity.MovieEntity
 
 
 class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {

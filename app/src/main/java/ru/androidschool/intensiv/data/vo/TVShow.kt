@@ -1,13 +1,10 @@
 package ru.androidschool.intensiv.data.vo
 
-import com.google.gson.annotations.SerializedName
-import ru.androidschool.intensiv.BuildConfig
-
 data class TVShow(
-    @SerializedName("name")
-    val title: String
+    val title: String,
+    val image: String?,
+    val voteAverage: Double
 ) {
-    @SerializedName("poster_path")
-    var image: String? = null
-        get() = "${BuildConfig.URL_IMAGE}$field"
+    val rating: Double
+        get() = voteAverage / 2
 }

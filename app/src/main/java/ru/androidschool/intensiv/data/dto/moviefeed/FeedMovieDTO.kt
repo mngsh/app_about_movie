@@ -1,13 +1,12 @@
-package ru.androidschool.intensiv.data.dto
+package ru.androidschool.intensiv.data.dto.moviefeed
 
 import com.google.gson.annotations.SerializedName
-import ru.androidschool.intensiv.data.vo.Movie
 
 data class FeedMovieDTO(
     @SerializedName("getNowPlayingMovie")
-    val playingMovie: List<Movie>,
+    val playingMovieDTO: List<MovieDTO>,
     @SerializedName("getRecommendedMovie")
-    val recommendedMovie: List<Movie>,
+    val recommendedMovieDTO: List<MovieDTO>,
     @SerializedName("getPopularMovie")
-    val popularMovie: List<Movie>
+    val popularMovieDTO: List<MovieDTO>
 )

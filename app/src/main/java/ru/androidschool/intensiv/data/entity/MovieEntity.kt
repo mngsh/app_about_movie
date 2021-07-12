@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.database
+package ru.androidschool.intensiv.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

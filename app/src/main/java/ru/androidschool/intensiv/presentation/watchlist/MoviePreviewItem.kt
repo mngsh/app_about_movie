@@ -5,12 +5,12 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_with_text.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.vo.Movie
-import ru.androidschool.intensiv.database.MovieEntity
+import ru.androidschool.intensiv.data.dto.moviefeed.MovieDTO
+import ru.androidschool.intensiv.data.entity.MovieEntity
 
 class MoviePreviewItem(
     private val content: MovieEntity,
-    private val onClick: (movie: Movie) -> Unit
+    private val onClick: (movieDTO: MovieDTO) -> Unit
 ) : Item() {
 
     override fun getLayout() = R.layout.item_small

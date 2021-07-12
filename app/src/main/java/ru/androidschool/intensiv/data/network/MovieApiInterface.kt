@@ -4,8 +4,8 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.androidschool.intensiv.data.dto.MoviesDTO
-import ru.androidschool.intensiv.data.dto.MovieDetailsDTO
+import ru.androidschool.intensiv.data.dto.moviefeed.MovieResponseDTO
+import ru.androidschool.intensiv.data.dto.moviedetail.MovieDetailsDTO
 
 interface MovieApiInterface {
 
@@ -13,19 +13,19 @@ interface MovieApiInterface {
     fun getUpcomingMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Observable<MoviesDTO>
+    ): Observable<MovieResponseDTO>
 
     @GET("/3/movie/top_rated")
     fun getTopRatedMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Observable<MoviesDTO>
+    ): Observable<MovieResponseDTO>
 
     @GET("/3/movie/popular")
     fun getPopularMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Observable<MoviesDTO>
+    ): Observable<MovieResponseDTO>
 
     @GET("/3/movie/{movie_id}")
     fun getMovieDetail(
