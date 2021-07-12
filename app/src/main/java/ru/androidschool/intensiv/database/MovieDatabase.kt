@@ -1,11 +1,9 @@
 package ru.androidschool.intensiv.database
 
 import android.content.Context
-import androidx.fragment.app.FragmentActivity
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ru.androidschool.intensiv.data.Movie
 
 
 @Database(entities = [MovieEntity::class], version = 1)
