@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
+import ru.androidschool.intensiv.BuildConfig.API_KEY
+import ru.androidschool.intensiv.BuildConfig.LANGUAGE
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.tvshow.TVShow
 import ru.androidschool.intensiv.extensions.addSchedulers
@@ -24,7 +26,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
         tvShows_recyclerview.layoutManager = LinearLayoutManager(context)
 
-        val getTvShow = TVShowApiClient.apiClient.getTVShow(API_KEY, "ru")
+        val getTvShow = TVShowApiClient.apiClient.getTVShow(API_KEY, LANGUAGE)
 
         getTvShow
             .addSchedulers()
@@ -39,11 +41,6 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
             }
         }.toList()
         tvShows_recyclerview.adapter = adapter.apply { addAll(listTVShow) }
-    }
-
-
-    companion object {
-        private val API_KEY = "0d4fd65801631f856cd4df53e7c5a7e3"
     }
 
 }

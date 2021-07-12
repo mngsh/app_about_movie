@@ -27,10 +27,14 @@ android {
         debug {
             buildConfigField "String", 'BASE_URL', '"https://api.themoviedb.org"'
             buildConfigField "String", 'URL_IMAGE', '"https://image.tmdb.org/t/p/w500"'
+            buildConfigField "String", 'API_KEY', '"0d4fd65801631f856cd4df53e7c5a7e3"'
+            buildConfigField "String", 'LANGUAGE', '"ru"'
         }
         release{
             buildConfigField "String", 'BASE_URL', '"https://api.themoviedb.org"'
             buildConfigField "String", 'URL_IMAGE', '"https://image.tmdb.org/t/p/w500"'
+            buildConfigField "String", 'API_KEY', '"0d4fd65801631f856cd4df53e7c5a7e3"'
+            buildConfigField "String", 'LANGUAGE', '"ru"'
         }
     }
 

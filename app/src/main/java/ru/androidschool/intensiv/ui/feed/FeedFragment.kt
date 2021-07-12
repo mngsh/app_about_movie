@@ -15,6 +15,8 @@ import io.reactivex.functions.Function3
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
+import ru.androidschool.intensiv.BuildConfig.API_KEY
+import ru.androidschool.intensiv.BuildConfig.LANGUAGE
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Movie
 import ru.androidschool.intensiv.data.MoviesResponse
@@ -49,9 +51,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-        val getNowPlayingMovie = MovieApiClient.apiClient.getUpcomingMovie(API_KEY, "ru")
-        val getRecommendedMovie = MovieApiClient.apiClient.getTopRatedMovie(API_KEY, "ru")
-        val getPopularMovie = MovieApiClient.apiClient.getPopularMovie(API_KEY, "ru")
+        val getNowPlayingMovie = MovieApiClient.apiClient.getUpcomingMovie(API_KEY, LANGUAGE)
+        val getRecommendedMovie = MovieApiClient.apiClient.getTopRatedMovie(API_KEY, LANGUAGE)
+        val getPopularMovie = MovieApiClient.apiClient.getPopularMovie(API_KEY, LANGUAGE)
 
         val disp = Observable.zip(getNowPlayingMovie, getRecommendedMovie, getPopularMovie,
             Function3<MoviesResponse, MoviesResponse, MoviesResponse, ResultFeedMovie>
@@ -66,7 +68,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             .addSchedulers()
             .doOnSubscribe { feed_fragment_progress_bar.visibility = View.VISIBLE }
             .doFinally { feed_fragment_progress_bar.visibility = View.INVISIBLE }
-            .subscribe{
+            .subscribe {
                 createMovieCard(it.popularMovie, R.string.recommended)
                 createMovieCard(it.recommendedMovie, R.string.popular)
                 createMovieCard(it.playingMovie, R.string.upcoming)
@@ -112,6 +114,5 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val MIN_LENGTH = 3
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
-        private val API_KEY = "0d4fd65801631f856cd4df53e7c5a7e3"
     }
 }
