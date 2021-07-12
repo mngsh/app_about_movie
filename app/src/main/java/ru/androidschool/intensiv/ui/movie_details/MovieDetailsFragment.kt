@@ -1,6 +1,7 @@
 package ru.androidschool.intensiv.ui.movie_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
@@ -44,10 +45,12 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         like_detail_movie.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                db?.save(movieResponse)?.addSchedulersToDB()?.subscribe()
+                db?.save(movieResponse)?.addSchedulersToDB()?.subscribe({},
+                    {Timber.e(it.message.toString())})
                 buttonView.setButtonDrawable(R.drawable.ic_like_red)
-            } else if (!isChecked) {
-                db?.delete(movieResponse)?.addSchedulersToDB()?.subscribe()
+            } else {
+                db?.delete(movieResponse)?.addSchedulersToDB()?.subscribe({},
+                    {Timber.e(it.message.toString())})
                 buttonView.setButtonDrawable(R.drawable.ic_like)
             }
         }
