@@ -21,7 +21,7 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.moviefeed.MovieDTO
 import ru.androidschool.intensiv.data.dto.moviefeed.MovieResponseDTO
 import ru.androidschool.intensiv.data.dto.moviefeed.FeedMovieDTO
-import ru.androidschool.intensiv.domain.extensions.addSchedulers
+import ru.androidschool.intensiv.domain.usecase.extensions.addSchedulers
 import ru.androidschool.intensiv.data.network.MovieApiClient
 import ru.androidschool.intensiv.presentation.afterTextChanged
 import timber.log.Timber

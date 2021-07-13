@@ -11,7 +11,7 @@ import ru.androidschool.intensiv.BuildConfig.API_KEY
 import ru.androidschool.intensiv.BuildConfig.LANGUAGE
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.tvshow.TVShowDTO
-import ru.androidschool.intensiv.domain.extensions.addSchedulers
+import ru.androidschool.intensiv.domain.usecase.extensions.addSchedulers
 import ru.androidschool.intensiv.data.network.TVShowApiClient
 
 

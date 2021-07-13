@@ -12,8 +12,8 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.moviedetail.MovieDetailsDTO
 import ru.androidschool.intensiv.data.database.MovieDatabase
 import ru.androidschool.intensiv.data.entity.MovieEntity
-import ru.androidschool.intensiv.domain.extensions.addSchedulers
-import ru.androidschool.intensiv.domain.extensions.addSchedulersToDB
+import ru.androidschool.intensiv.domain.usecase.extensions.addSchedulers
+import ru.androidschool.intensiv.domain.usecase.extensions.addSchedulersToDB
 import ru.androidschool.intensiv.data.network.MovieApiClient
 import ru.androidschool.intensiv.presentation.feed.FeedFragment
 import timber.log.Timber
