@@ -16,7 +16,6 @@
 - Kotlin Coroutines (https://kotlinlang.org/docs/coroutines-guide.html#table-of-contents)
 - Clean architecture
 - MVVM
-- Использовал API 
 
 ## Этапы реализации проекта:
 
