@@ -26,4 +26,3 @@
 5. Разбить приложение на основании паттерна Clean architecture.
 6. Добавить Live Data и MVVM.
 7. Внедрение зависимостей Dagger 2.
-8. Попробовать реализовать Kotlin coroutines.
